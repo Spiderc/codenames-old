@@ -1,0 +1,30 @@
+body{
+	text-align: center;
+}
+
+.tableContainer{
+	font-size: 0;
+ }
+
+.tableSection{
+	border: 1px solid;
+	height: 50px;
+	width: 50px;
+	display: inline-block;
+}
+
+.assassin{
+	background-color: black;
+}
+
+.blue{
+	background-color: blue;
+}
+
+.red{
+	background-color: red;
+}
+
+.bystander{
+	background-color: gray;
+}
