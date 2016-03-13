@@ -25,7 +25,13 @@ $(document).ready(function(){
 		importBoard();
 	});
 	$("#generateWords").click(function(){
+		clearWords();
 		getWords();
+	});
+	$(".word").click(function(){
+		var id = $(this)[0].id.substring(2, $(this)[0].id.length);
+		$("#word"+id).text("");
+		$(this).addClass($("#tableSection"+id)[0]["classList"][1]);
 	});
 });
 
@@ -112,6 +118,17 @@ function clearBoard(){
 		$("#tableSection" + (i + 1)).removeClass("blue");
 		$("#tableSection" + (i + 1)).removeClass("bystander");
 		$("#tableSection" + (i + 1)).removeClass("assassin");
+	}
+	clearWords();
+}
+
+function clearWords(){
+	for(var i=0;i<25;i++){
+		$("#td" + (i + 1)).removeClass("red");
+		$("#td" + (i + 1)).removeClass("blue");
+		$("#td" + (i + 1)).removeClass("bystander");
+		$("#td" + (i + 1)).removeClass("assassin");
+		$("#word" + (i + 1)).text("");
 	}
 }
 

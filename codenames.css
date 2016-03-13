@@ -5,6 +5,12 @@ body{
 table{
 	margin: 0 auto;
 	text-align: center;
+	border-collapse: collapse;
+}
+
+td{
+	height: 25px;
+	width: 100px;
 }
 
 .tableContainer{
