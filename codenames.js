@@ -4,6 +4,18 @@ $(document).ready(function(){
 	clearBoard();
 	$("#boardId").val("");
 	
+	$.get("words.json", {}, function(data){
+		var setsString = "";
+		for(key in data){
+			setsString = setsString + "<input class='checkbox' type='checkbox' id='"+key+"' name='"+key+"'";
+			if(key === "Base"){
+				setsString = setsString + " checked";
+			}
+			setsString = setsString + "><label for='"+key+"'>"+key+"</label>";
+		}
+		$("#setArea").html(setsString);
+	}, "json");
+	
 	$("#generateButton").click(function(){
 		clearBoard();
 		generateBoard();
@@ -11,6 +23,9 @@ $(document).ready(function(){
 	$("#importButton").click(function(){
 		clearBoard();
 		importBoard();
+	});
+	$("#generateWords").click(function(){
+		getWords();
 	});
 });
 
@@ -97,6 +112,36 @@ function clearBoard(){
 		$("#tableSection" + (i + 1)).removeClass("blue");
 		$("#tableSection" + (i + 1)).removeClass("bystander");
 		$("#tableSection" + (i + 1)).removeClass("assassin");
+	}
+}
+
+function getWords(){
+	var setList = [];
+	$(".checkbox").each(function(){
+		if($(this.checked)[0]){
+			setList.push($(this)[0].id);
+		}
+	});
+	if(setList.length > 0){
+		var wordList = [];
+		$.get("words.json", {}, function(data){
+			for(key in data){
+				if(setList.indexOf(key) > -1){
+					for(i in data[key]){
+						wordList.push(data[key][i]["word"]);
+					}
+				}
+			}
+			generateWordTable(wordList);
+		}, "json");
+	}
+}
+
+function generateWordTable(wordList){
+	for(var i=0;i<25;i++){
+		var wordNumber = randomNumber(0, wordList.length);
+		$("#word"+(i + 1)).text(wordList[wordNumber]);
+		wordList.splice(wordNumber, 1);
 	}
 }
 
