@@ -3,6 +3,7 @@ var hexMap = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
 $(document).ready(function(){
 	clearBoard();
 	$("#boardId").val("");
+	$("#words").val("");
 	
 	$.get("words.json", {}, function(data){
 		var setsString = "";
@@ -28,9 +29,13 @@ $(document).ready(function(){
 		clearWords();
 		getWords();
 	});
+	$("#importWordsButton").click(function(){
+		clearWords();
+		importWords();
+	});
 	$(".word").click(function(){
 		var id = $(this)[0].id.substring(2, $(this)[0].id.length);
-		$("#word"+id).text("");
+		$("#word"+id).toggle();
 		$(this).addClass($("#tableSection"+id)[0]["classList"][1]);
 	});
 });
@@ -128,6 +133,7 @@ function clearWords(){
 		$("#td" + (i + 1)).removeClass("blue");
 		$("#td" + (i + 1)).removeClass("bystander");
 		$("#td" + (i + 1)).removeClass("assassin");
+		$("#word" + (i + 1)).show();
 		$("#word" + (i + 1)).text("");
 	}
 }
@@ -155,10 +161,20 @@ function getWords(){
 }
 
 function generateWordTable(wordList){
+	var words = "";
 	for(var i=0;i<25;i++){
-		var wordNumber = randomNumber(0, wordList.length);
+		var wordNumber = randomNumber(0, wordList.length - 1);
 		$("#word"+(i + 1)).text(wordList[wordNumber]);
+		words = words + wordList[wordNumber] + "|";
 		wordList.splice(wordNumber, 1);
+	}
+	$("#words").val(words);
+}
+
+function importWords(){
+	var wordArray = $("#words").val().split("|");
+	for(var i=0;i<25;i++){
+		$("#word"+(i + 1)).text(wordArray[i]);
 	}
 }
 
