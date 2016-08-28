@@ -47,6 +47,13 @@
 		<input id="boardId">
 		<button id="importButton" type="button">Import</button>
 	</div>
+	<div>
+		<select style="display:none" id="codeMasterColor">
+			<option value=""></option>
+			<option value="blue">Blue</option>
+			<option value="red">Red</option>
+		</select>
+	</div>
 	
 	<br/><br/>
 	<div id="setArea"></div>
@@ -88,7 +95,16 @@
 			<td id="td25" class="word"><span id="word25"></span></td>
 		</tr>
 	</table>
-		<div>
+	<div>
+		<select id="color">
+			<option value="">Blank</option>
+			<option value="blue">Blue</option>
+			<option value="red">Red</option>
+			<option value="bystander">Bystander</option>
+			<option value="assassin">Assassin</option>
+		</select>
+	</div>
+	<div>
 		<input id="words">
 		<button id="importWordsButton" type="button">Import Words</button>
 	</div>

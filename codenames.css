@@ -29,7 +29,7 @@ td{
 }
 
 .blue{
-	background-color: blue;
+	background-color: cornflowerblue;
 }
 
 .red{
@@ -38,4 +38,8 @@ td{
 
 .bystander{
 	background-color: gray;
+}
+
+.bold{
+	font-weight:bold;
 }

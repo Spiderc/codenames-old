@@ -20,23 +20,52 @@ $(document).ready(function(){
 	$("#generateButton").click(function(){
 		clearBoard();
 		generateBoard();
+		$("#generateButton").hide();
+		$("#importButton").hide();
+		$("#color").hide();
+		$("#codeMasterColor").show();
 	});
 	$("#importButton").click(function(){
 		clearBoard();
 		importBoard();
+		$("#generateButton").hide();
+		$("#boardId").hide();
+		$("#importButton").hide();
+		$("#color").hide();
+		$("#codeMasterColor").show();
 	});
 	$("#generateWords").click(function(){
 		clearWords();
 		getWords();
+		$("#setArea").hide();
+		$("#generateWords").hide();
+		$("#importWordsButton").hide();
 	});
 	$("#importWordsButton").click(function(){
 		clearWords();
 		importWords();
+		$("#setArea").hide();
+		$("#generateWords").hide();
+		$("#words").hide();
+		$("#importWordsButton").hide();
 	});
 	$(".word").click(function(){
 		var id = $(this)[0].id.substring(2, $(this)[0].id.length);
 		$("#word"+id).toggle();
+		$("#word"+id).parent().removeClass("blue");
+		$("#word"+id).parent().removeClass("red");
+		$("#word"+id).parent().removeClass("bystander");
+		$("#word"+id).parent().removeClass("assassin");
+		$("#word"+id).parent().addClass($("#color").val());
 		$(this).addClass($("#tableSection"+id)[0]["classList"][1]);
+	});
+	$("#codeMasterColor").change(function(){
+		for(var i=1;i<26;i++){
+			$("#td"+i).removeClass("bold");
+			if($("#tableSection"+i)[0]["classList"][1] === $("#codeMasterColor").val()){
+				$("#td"+i).addClass("bold");
+			}
+		}
 	});
 });
 
