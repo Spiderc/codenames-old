@@ -47,8 +47,9 @@
 		<input id="boardId">
 		<button id="importButton" type="button">Import</button>
 	</div>
-	<div>
-		<select style="display:none" id="codeMasterColor">
+	<div style="display:none" id="codeMasterColorContainer">
+		Your Team:
+		<select id="codeMasterColor">
 			<option value=""></option>
 			<option value="blue">Blue</option>
 			<option value="red">Red</option>
@@ -58,7 +59,7 @@
 	<br/><br/>
 	<div id="setArea"></div>
 	<button id="generateWords" type="button">Generate Words</button>
-	<table>
+	<table id="wordsTable">
 		<tr>
 			<td id="td1" class="word"><span id="word1"></span></td>
 			<td id="td2" class="word"><span id="word2"></span></td>
@@ -97,15 +98,37 @@
 	</table>
 	<div>
 		<select id="color">
-			<option value="">Blank</option>
-			<option value="blue">Blue</option>
-			<option value="red">Red</option>
-			<option value="bystander">Bystander</option>
-			<option value="assassin">Assassin</option>
+			<option value="">Clear</option>
+			<option class="playerColor" value="blue">Blue</option>
+			<option class="playerColor" value="red">Red</option>
+			<option class="playerColor" value="bystander">Bystander</option>
+			<option class="playerColor" value="assassin">Assassin</option>
 		</select>
 	</div>
 	<div>
 		<input id="words">
 		<button id="importWordsButton" type="button">Import Words</button>
+	</div>
+	<div>
+		Starting Team:
+		<select id="starting">
+			<option value=""></option>
+			<option value="blue">Blue</option>
+			<option value="red">Red</option>
+		</select>
+		<table>
+			<tr>
+				<td>Blue</td>
+				<td>Red</td>
+				<td>Bystander</td>
+				<td>Assassin</td>
+			</tr>
+			<tr>
+				<td><span id="currentBlue">0</span>/<span id="totalBlue">8</span></td>
+				<td><span id="currentRed">0</span>/<span id="totalRed">8</span></td>
+				<td><span id="currentBystander">0</span>/7</span></td>
+				<td><span id="currentAssassin">0</span>/1</td>
+			</tr>
+		</table>
 	</div>
 </body>

@@ -17,15 +17,9 @@ td{
 	font-size: 0;
  }
 
-.tableSection{
-	border: 1px solid;
-	height: 50px;
-	width: 50px;
-	display: inline-block;
-}
-
 .assassin{
 	background-color: black;
+	color: white;
 }
 
 .blue{
@@ -38,6 +32,14 @@ td{
 
 .bystander{
 	background-color: gray;
+}
+
+.tableSection{
+	border: 1px solid;
+	height: 50px;
+	width: 50px;
+	display: inline-block;
+	color: black;
 }
 
 .bold{

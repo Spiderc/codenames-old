@@ -2,8 +2,11 @@ var hexMap = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
 
 $(document).ready(function(){
 	clearBoard();
+	clearWords();
 	$("#boardId").val("");
 	$("#words").val("");
+	$("#codeMasterColor").val("");
+	$("#starting").val("");
 	
 	$.get("words.json", {}, function(data){
 		var setsString = "";
@@ -22,8 +25,10 @@ $(document).ready(function(){
 		generateBoard();
 		$("#generateButton").hide();
 		$("#importButton").hide();
-		$("#color").hide();
-		$("#codeMasterColor").show();
+		$("#codeMasterColorContainer").show();
+		$(".playerColor").hide();
+		$("#color").append("<option value='codemaster'>Codemaster</option>");
+		$("#color").val("codemaster");
 	});
 	$("#importButton").click(function(){
 		clearBoard();
@@ -32,7 +37,10 @@ $(document).ready(function(){
 		$("#boardId").hide();
 		$("#importButton").hide();
 		$("#color").hide();
-		$("#codeMasterColor").show();
+		$("#codeMasterColorContainer").show();
+		$(".playerColor").hide();
+		$("#color").append("<option value='codemaster'>Codemaster</option>");
+		$("#color").val("codemaster");
 	});
 	$("#generateWords").click(function(){
 		clearWords();
@@ -51,13 +59,18 @@ $(document).ready(function(){
 	});
 	$(".word").click(function(){
 		var id = $(this)[0].id.substring(2, $(this)[0].id.length);
-		$("#word"+id).toggle();
 		$("#word"+id).parent().removeClass("blue");
 		$("#word"+id).parent().removeClass("red");
 		$("#word"+id).parent().removeClass("bystander");
 		$("#word"+id).parent().removeClass("assassin");
-		$("#word"+id).parent().addClass($("#color").val());
-		$(this).addClass($("#tableSection"+id)[0]["classList"][1]);
+		if($("#color").val() == ""){
+			$("#word"+id).show();
+		} else {
+			$("#word"+id).toggle();
+			$("#word"+id).parent().addClass($("#color").val());
+			$(this).addClass($("#tableSection"+id)[0]["classList"][1]);
+		}
+		updateCurrent();
 	});
 	$("#codeMasterColor").change(function(){
 		for(var i=1;i<26;i++){
@@ -67,6 +80,9 @@ $(document).ready(function(){
 			}
 		}
 	});
+	$("#starting").change(function(){
+		updateStartingTotals();
+	});
 });
 
 function generateBoard(){
@@ -75,11 +91,14 @@ function generateBoard(){
 		$("#startingTeam").text("Red");
 		$("#startingTeam").addClass("red");
 		$("#startingTeam").removeClass("blue");
+		$("#starting").val("red");
 	} else {
 		$("#startingTeam").text("Blue");
 		$("#startingTeam").addClass("blue");
 		$("#startingTeam").removeClass("red");
+		$("#starting").val("blue");
 	}
+	updateStartingTotals();
 	var array = [0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3];
 	array.push(startingTeam);
 	var board = [];
@@ -153,7 +172,6 @@ function clearBoard(){
 		$("#tableSection" + (i + 1)).removeClass("bystander");
 		$("#tableSection" + (i + 1)).removeClass("assassin");
 	}
-	clearWords();
 }
 
 function clearWords(){
@@ -205,6 +223,42 @@ function importWords(){
 	for(var i=0;i<25;i++){
 		$("#word"+(i + 1)).text(wordArray[i]);
 	}
+}
+
+function updateStartingTotals(){
+	if($("#starting").val() == "blue"){
+		$("#totalBlue").text("9");
+		$("#totalRed").text("8");
+	} else if($("#starting").val() == "red"){
+		$("#totalBlue").text("8");
+		$("#totalRed").text("9");
+	} else {
+		$("#totalBlue").text("8");
+		$("#totalRed").text("8");
+	}
+}
+
+function updateCurrent(){
+	var currentBlue = 0;
+	var currentRed = 0;
+	var currentBystander = 0;
+	var currentAssassin = 0;
+	$("#wordsTable .blue").each(function(){
+		currentBlue = currentBlue + 1;
+	});
+	$("#wordsTable .red").each(function(){
+		currentRed = currentRed + 1;
+	});
+	$("#wordsTable .bystander").each(function(){
+		currentBystander = currentBystander + 1;
+	});
+	$("#wordsTable .assassin").each(function(){
+		currentAssassin = currentAssassin + 1;
+	});
+	$("#currentBlue").text(currentBlue);
+	$("#currentRed").text(currentRed);
+	$("#currentBystander").text(currentBystander);
+	$("#currentAssassin").text(currentAssassin);
 }
 
 function randomNumber(lowerBound, upperBound){
